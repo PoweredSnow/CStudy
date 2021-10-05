@@ -32,7 +32,7 @@ void pop(S *s, char e)
 {
     if (s->top == 50)
     {
-        fprintf(stderr, "The Stack is full\n");
+        fprintf(stderr, "The Stack is null\n");
         exit(EXIT_FAILURE);
     }
     e = s->arr[s->top++];
@@ -84,7 +84,46 @@ void deQueue(Q *q, int *e)
  *子任务名：完成下面3个函数
  *姓名：蔡础隆  班级：5班  学号：2020012271  日期：2021/10/01
  */
-
+/* 队尾插入元素 */
+void EnQ(LQ *q, char x)
+{
+    Node *s = (Node *)malloc(sizeof(Node));
+    if (!q)
+    {
+        fprintf(stderr, "OVERFLOW\n");
+        exit(EXIT_FAILURE);
+    }
+    s->data = x;
+    s->next = NULL;
+    q->r->next = s; // 原来队尾的 next 指向新的元素
+    q->r = s;       // 将新元素变为队尾
+}
+/* 队头元素出队 */
+int DeQ(LQ *q, char *x)
+{
+    Node *p;
+    if (q->f == q->r)
+        return 0;
+    p = q->f->next; // p指向队头元素
+    *x = p->data;
+    q->f->next = p->next; // 头结点的后继指向队头的下一个元素
+    if (q->r == p)
+        q->r = q->f; // 队尾直接指向头结点将其出队
+    free(p);
+    return 1;
+}
+/* 遍历 */
+void vist(LQ *q)
+{
+    Node *p;
+    p = q->f->next;
+    while (p)
+    {
+        printf("%d ", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
 
 
 数据结构任务2
