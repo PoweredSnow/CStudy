@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAXSIZE 11
+#define MAXSTRLEN 255
 
 int Time(int n)
 {
@@ -381,10 +382,99 @@ void vist(LQ *q)
     printf("\n");
 }
 
+typedef unsigned char SString[MAXSTRLEN + 1];
+
+int StrAssign(SString T, char *chars)
+{
+    if (strlen(chars) > MAXSTRLEN) {
+        fprintf(stderr, "Error\n");
+        return -1;
+    }
+    T[0] = strlen(chars);
+    for (int i = 0; i < T[0]; i++)
+        T[i + 1] = chars[i];
+    return 1;
+}
+
+#define MAXSIZE 12500
+
+typedef struct {
+    int i, j; //该非零元的行下标和列下标
+    int e;
+} Triple;
+
+typedef struct {
+    Triple data[MAXSIZE + 1]; // 非零元三元组表， data[0]未用
+    int mu, nu, tu; // 矩阵的行数、列数和非零元的个数
+} TSMatrix;
+
+int Judge(TSMatrix  T, int i, int j)
+{
+    if (i <= 0 || j <= 0 || i > T.mu || j > T.nu) {
+        fprintf(stderr, "Error\n");
+        return -1;
+    }
+    if (T.tu) {
+        for (int k = 1; k <= T.tu; k++) {
+            if (T.data[k].i == i && T.data[k].j == j) {
+                    printf("是非零元\n");
+                    return 0;
+            }
+        }
+    }
+    printf("不是非零元\n");
+    return 0;
+}
+
+typedef enum {ATOM, LIST} ELemTag;  // ATOM == 0:原子, LIST == 1:子表
+typedef struct GLNode {
+    ELemTag tag;                    // 公共部分，用于区分原子节点和表结点
+    union {                         // 原子节点和表结点的联合部分
+        char atom;                  // 原子节点的值域
+        struct GLNode *hp;          // 表结点的表头指针
+    };
+    struct GLNode *tp;              // 相当于线性链表的 next,指向下一个元素结点
+} *Glist;                           // 广义表类型 GList 是一种拓展的线性链表
+
 int main(void)
 {
-    LQ *q = (LQ*)malloc(sizeof(Node));
-    q = initLinkQueue(q);
+    Glist G = (Glist)malloc(sizeof(Glist));
+    G->tag = 1, G->tp = NULL;
+    G->hp->tag = 0, G->hp->atom = 'a';
+    G->hp->tp->tag = 1, G->hp->tp->tp = NULL;
+    G->hp->tp->hp->tag = 0,  G->hp->tp->hp->atom = 'b';
+    G->hp->tp->hp->tp->tag = 0,  G->hp->tp->hp->tp->atom = 'c';
+    G->hp->tp->hp->tp->tp->tag = 0,  G->hp->tp->hp->tp->tp->atom = 'd';
+    G->hp->tp->hp->tp->tp->tp->tag = 0,  G->hp->tp->hp->tp->tp->tp->atom = 'd',
+    G->hp->tp->hp->tp->tp->tp->tp = NULL;
+
+
+    /*
+    TSMatrix T;
+    T.mu = 3, T.nu = 4, T.tu = 4;
+    T.data[1].i = 2, T.data[1].j = 1, T.data[1].e = 5;
+    T.data[2].i = 2, T.data[2].j = 3, T.data[2].e = 6;
+    T.data[3].i = 2, T.data[3].j = 4, T.data[2].e = 3;
+    T.data[4].i = 3, T.data[4].j = 1, T.data[4].e = -1;
+
+    Judge(T, 2, 1);
+    */
+
+
+    /*
+    SString T;
+    T[0] = MAXSTRLEN;
+    char chars[] = "Hello";
+
+    StrAssign(T, chars);
+    for (int i = 0; i < strlen(chars); i++)
+        printf("%c", T[i + 1]);
+    printf("\n");
+    */
+
+
+    // LQ *q = (LQ*)malloc(sizeof(Node));
+    // q = initLinkQueue(q);
 
     /*
     Q *q = NULL;
