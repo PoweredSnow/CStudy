@@ -1,0 +1,12 @@
+#define OK 1
+#define ERROR 0
+#define TRUE 1
+#define FALSE 0
+#define MAXSIZE 20
+#define OVERFLOW -1
+#define MAX_TREE_SIZE 100
+typedef int Status;
+typedef int ElemType;
+typedef int SElemType;
+typedef int QElemType;
+typedef int TElemType;

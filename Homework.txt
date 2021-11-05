@@ -1,3 +1,64 @@
+数据结构任务5
+1.
+/**
+ * 子任务名：写出二叉树的二叉链表存储结构，统计二叉树中结点个数
+ * 姓名：蔡础隆  班级：5班  学号：2020012271  日期：2021/10/15
+ */
+typedef struct BiTNode {
+    int data;
+    struct BiTNode *lchild, *rchild;
+} BiTNode, *BTree;
+
+int NodeCount(BTree T) {
+    if (NULL == T)
+        return 0;
+    else
+        return NodeCount(T->lchild) + NodeCount(T->rchild) + 1;
+}
+2.
+/**
+ * 子任务名：写出树的带双亲的孩子链表法存储结构，计算树的度
+ * 姓名：蔡础隆  班级：5班  学号：2020012271  日期：2021/10/15
+ */
+#define MAX_TREE_SIZE 100
+typedef struct CTNode {
+    int child;
+    struct CTNode *next;
+} *ChildPtr;
+typedef struct {
+    int data;
+    int parent;
+    ChildPtr firstChild;
+} CTBox;
+typedef struct {
+    CTBox nodes[MAX_TREE_SIZE];
+    int r, n;
+} CTree;
+
+int TreeDegree(CTree T)
+{
+    if (0 == T.n)
+        return 0;
+    int flag = 0;
+    int n = 0;
+    for (int i = 0; i < T.n; i++) {
+        while (T.nodes[i].firstChild) {
+            T.nodes[i].firstChild = T.nodes[i].firstChild->next;
+            flag++;
+        }
+        if (n < flag)
+            n = flag;
+    }
+    return n;
+}
+3.
+/**
+ * 子任务名：写出树的带双亲的孩子链表法存储结构，计算树的度
+ * 姓名：蔡础隆  班级：5班  学号：2020012271  日期：2021/10/15
+ */
+
+
+
 数据结构任务4
 1.
 /**

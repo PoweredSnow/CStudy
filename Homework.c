@@ -436,30 +436,52 @@ typedef struct GLNode {
     struct GLNode *tp;              // 相当于线性链表的 next,指向下一个元素结点
 } *Glist;                           // 广义表类型 GList 是一种拓展的线性链表
 
+typedef struct BiTNode {
+    int data;
+    struct BiTNode *lchild, *rchild;
+} BiTNode, *BTree;
+
+int NodeCount(BTree T) {
+    if (NULL == T)
+        return 0;
+    else
+        return NodeCount(T->lchild) + NodeCount(T->rchild) + 1;
+}
+
+#define MAX_TREE_SIZE 100
+typedef struct CTNode {
+    int child;
+    struct CTNode *next;
+} *ChildPtr;
+typedef struct {
+    int data;
+    int parent;
+    ChildPtr firstChild;
+} CTBox;
+typedef struct {
+    CTBox nodes[MAX_TREE_SIZE];
+    int r, n;
+} CTree;
+
+int TreeDegree(CTree T)
+{
+    if (0 == T.n)
+        return 0;
+    int flag = 0;
+    int n = 0;
+    for (int i = 0; i < T.n; i++) {
+        while (T.nodes[i].firstChild) {
+            T.nodes[i].firstChild = T.nodes[i].firstChild->next;
+            flag++;
+        }
+        if (n < flag)
+            n = flag;
+    }
+    return n;
+}
+
 int main(void)
 {
-    Glist G = (Glist)malloc(sizeof(Glist));
-    G->tag = 1, G->tp = NULL;
-    G->hp->tag = 0, G->hp->atom = 'a';
-    G->hp->tp->tag = 1, G->hp->tp->tp = NULL;
-    G->hp->tp->hp->tag = 0,  G->hp->tp->hp->atom = 'b';
-    G->hp->tp->hp->tp->tag = 0,  G->hp->tp->hp->tp->atom = 'c';
-    G->hp->tp->hp->tp->tp->tag = 0,  G->hp->tp->hp->tp->tp->atom = 'd';
-    G->hp->tp->hp->tp->tp->tp->tag = 0,  G->hp->tp->hp->tp->tp->tp->atom = 'd',
-    G->hp->tp->hp->tp->tp->tp->tp = NULL;
-
-
-    /*
-    TSMatrix T;
-    T.mu = 3, T.nu = 4, T.tu = 4;
-    T.data[1].i = 2, T.data[1].j = 1, T.data[1].e = 5;
-    T.data[2].i = 2, T.data[2].j = 3, T.data[2].e = 6;
-    T.data[3].i = 2, T.data[3].j = 4, T.data[2].e = 3;
-    T.data[4].i = 3, T.data[4].j = 1, T.data[4].e = -1;
-
-    Judge(T, 2, 1);
-    */
-
 
     /*
     SString T;
