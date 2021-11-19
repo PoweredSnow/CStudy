@@ -7,16 +7,15 @@
  */
 typedef struct Node {
     ElemType data;
-    struct Node *next;
+    struct Node* next;
 } Node;
-typedef struct Node *LinkList;
+typedef struct Node* LinkList;
 
 /**
  * 初始条件：顺序线性表 L 已存在，1<=i<=ListLengh(L)
  * 操作结果：用 e 返回 L 中第 i 个数据元素的值
  */
-Status GetElem(LinkList L, int i, ElemType *e)
-{
+Status GetElem(LinkList L , int i , ElemType* e) {
     int j;
     LinkList p;
     p = L->next;
@@ -35,10 +34,9 @@ Status GetElem(LinkList L, int i, ElemType *e)
  * 初始条件：顺序线性表 L 已存在，1<=i<=ListLengh(L)
  * 操作结果：在 L 中第 i 个位置之前插入新的数据元素 e，L的长度加 1
  */
-Status LinkInsert(LinkList *L, int i, ElemType e)
-{
+Status LinkInsert(LinkList* L , int i , ElemType e) {
     int j;
-    LinkList p, s;
+    LinkList p , s;
     p = *L;
     j = 1;
     while (p && j < i) {
@@ -59,10 +57,9 @@ Status LinkInsert(LinkList *L, int i, ElemType e)
  * 初始条件：顺序线性表 L 已存在，1<=i<=ListLengh(L)
  * 操作结果：删除 L 的第 i 个数据元素，并用 e 返回其值，L 的长度减1
  */
-Status ListDelete(LinkList *L, int i, ElemType *e)
-{
+Status ListDelete(LinkList* L , int i , ElemType* e) {
     int j;
-    LinkList p, q;
+    LinkList p , q;
     p = *L;
     j = 1;
     while (p->next && j < i) {
@@ -80,8 +77,7 @@ Status ListDelete(LinkList *L, int i, ElemType *e)
 }
 
 /* 随机产生 n 个元素的值，建立带表头结点的单链线性表 L（头插法） */
-void CreateListHead(LinkList *L, int n)
-{
+void CreateListHead(LinkList* L , int n) {
     LinkList p;
     int i;
     srand(time(0)); /* 初始化随机数种子 */
@@ -90,22 +86,25 @@ void CreateListHead(LinkList *L, int n)
     for (i = 0; i < n; i++) {
         p = (LinkList)malloc(sizeof(Node));
         p->data = rand() % 100 + 1; /* 随机生成 100 以内的数字 */
+
         p->next = (*L)->next;
         (*L)->next = p; /* 插入到表头 */
+
     }
 }
 
 /* 随机产生 n 个元素的值，建立带表头结点的单链线性表 L（尾插法） */
-void CreateListTail(LinkList *L, int n)
-{
-    LinkList p, r;
+void CreateListTail(LinkList* L , int n) {
+    LinkList p , r;
     int i;
     srand(time(0));
     *L = (LinkList)malloc(sizeof(Node));
+
     r = *L; /* r 为指向尾部的结点 */
     for (i = 0; i < n; i++) {
         p = (LinkList)malloc(sizeof(Node));
         p->data = rand() % 100 + 1;
+
         r->next = p;
         r = p;
     }
@@ -113,9 +112,8 @@ void CreateListTail(LinkList *L, int n)
 }
 
 /* 初始条件：顺序线性表 L 已存在，操作结果：将 L 重置为空表 */
-Status ClearList(LinkList *L)
-{
-    LinkList p, q;
+Status ClearList(LinkList* L) {
+    LinkList p , q;
     p = (*L)->next;
     while (p) {
         q = p->next;
