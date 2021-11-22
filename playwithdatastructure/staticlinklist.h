@@ -9,8 +9,7 @@ typedef struct {
 
 /* 将一维数组 space 中各分量链成一备用链表 */
 /* space[0].cur 为头指针，“0” 表示空指针 */
-Status InitList(StaticLinkList space)
-{
+Status InitList(StaticLinkList space) {
     int i;
     for (i = 0; i < MAXSIZE - 1; i++)
         space[i].cur = i + 1;
@@ -19,8 +18,7 @@ Status InitList(StaticLinkList space)
 }
 
 /* 若备用空间链表非空，则返回分配的结点下标，否则返回 0 */
-int Malloc_SLL(StaticLinkList space)
-{
+int Malloc_SLL(StaticLinkList space) {
     int i = space[0].cur; /* 当前数组第一个元素的 cur 存的值， */
                           /* 就是要返回的第一个备用空闲的下标 */
     if (space[0].cur)
@@ -30,8 +28,7 @@ int Malloc_SLL(StaticLinkList space)
 }
 
 /* 在 L 中第 i 个元素之前插入新的数据元素 e */
-Status ListInsert(StaticLinkList L, int i, ElemType e)
-{
+Status ListInsert(StaticLinkList L, int i, ElemType e) {
     int j, k, l;
     if (i < 1 || i > ListLength(L) + 1)
         return ERROR;
@@ -49,8 +46,7 @@ Status ListInsert(StaticLinkList L, int i, ElemType e)
 }
 
 /* 删除在 L 中第 i 个数据元素 e */
-Status ListDelete(StaticLinkList L, int i)
-{
+Status ListDelete(StaticLinkList L, int i) {
     int j, k;
     if (i < 1 || i > ListLength(L))
         return ERROR;
@@ -64,15 +60,13 @@ Status ListDelete(StaticLinkList L, int i)
 }
 
 /* 将下标为 k 的空闲结点回收到备用链表 */
-void Free_SSL(StaticLinkList space, int k)
-{
+void Free_SSL(StaticLinkList space, int k) {
     space[k].cur = space[0].cur; /* 把第一个元素 cur 值赋给要删除的分量 cur */
     space[0].cur = k;            /* 把要删除的分量下标赋值给第一个元素的 cur */
 }
 
 /* 初始条件：静态链表 L 已存在。操作结果：返回 L 中数据元素个数 */
-int ListLength(StaticLinkList L)
-{
+int ListLength(StaticLinkList L) {
     int j = 0;
     int i = L[MAXSIZE - 1].cur;
     while (i) {

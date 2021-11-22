@@ -12,8 +12,7 @@ typedef struct {
 } SqDoubleStack;
 
 /* 插入元素 e 为新的栈顶元素 */
-Status Push(SqDoubleStack *S, SElemType e, int stackNumber)
-{
+Status Push(SqDoubleStack* S, SElemType e, int stackNumber) {
     if (S->top1 + 1 == S->top2) /* 栈已满 */
         return ERROR;
     if (stackNumber == 1) /* 栈 1 有元素进栈 */
@@ -24,8 +23,7 @@ Status Push(SqDoubleStack *S, SElemType e, int stackNumber)
 }
 
 /* 若栈不空，则删除 S 的栈顶元素， 用 e 返回其值 */
-Status Pop(SqDoubleStack *S, SElemType *e, int stackNumber)
-{
+Status Pop(SqDoubleStack* S, SElemType* e, int stackNumber) {
     if (stackNumber == 1) {
         if (S->top1 == -1)
             return ERROR;

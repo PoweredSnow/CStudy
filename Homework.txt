@@ -1,3 +1,51 @@
+数据结构任务7
+1.
+/**
+ * 子任务名：设计邻接表存储结构，基于该结构判断无向图是否连通
+ * 姓名：蔡础隆  班级：5班  学号：2020012271  日期：2021/11/22
+ */
+#define MAX_VERTEX_NUM 20
+typedef struct ArcNode {
+    int adjvex;                 // 该弧所指向的顶点的位置
+    struct ArcNode* nextarc;    // 指向下一条弧的指针
+    int* info;                  // 该弧相关信息的指针
+} ArcNode;
+
+typedef struct VNode {
+    int data;                   // 顶点信息
+    ArcNode* firstedge;         // 指向第一条依附该顶点的弧的指针
+} VNode, AdjList[MAX_VERTEX_NUM];
+
+typedef struct {
+    AdjList vertices;
+    int vexnum, arcnum;         // 图当前顶点数和弧数
+    int kind;                   // 图的种类标志
+} ALGraph;
+
+/* DFS递归 */
+int judgeDFSCount = 0;
+void DFS(ALGraph AL, int visited[], int i) {
+    visited[i] = 1;
+    judgeDFSCount++;
+    ArcNode* p = AL.vertices[i].firstedge;
+    while (p) {
+        if (!visited[p->adjvex])
+            DFS(AL, visited, p->adjvex);
+        p = p->nextarc;
+    }
+}
+
+/* DFS 判断 */
+int DFSGtaph(ALGraph AL) {
+    int* visited = (int*)malloc(sizeof(AL.vexnum));
+    int flag = 0;
+    DFS(AL, visited, 0);
+    if (judgeDFSCount == AL.vexnum) {
+        flag = 1;
+    }
+    return 1;
+}
+
 数据结构任务5
 1.
 /**

@@ -4,8 +4,7 @@
 #define MAXSIZE 11
 #define MAXSTRLEN 255
 
-int Time(int n)
-{
+int Time(int n) {
     int count = 0;    //1
     int x = 2;        //1 n = 2^i i = log2 n
     while (x < n / 2) //2 < 2^(n-1)
@@ -17,26 +16,21 @@ int Time(int n)
     return (count);
 } //Time
 
-int Fibonacci(int k, int m)
-{
-    if (k <= 1 || m < 0)
-    {
+int Fibonacci(int k, int m) {
+    if (k <= 1 || m < 0) {
         fprintf(stderr, "Error\n");
         exit(EXIT_FAILURE);
     }
     int j = 0, sum = 0;
-    int *arr = calloc(m + 1, sizeof(int));
-    for (int i = 0; i < k; i++)
-    {
+    int* arr = calloc(m + 1, sizeof(int));
+    for (int i = 0; i < k; i++) {
         if (i < k - 1)
             arr[j++] = 0;
         else if (i == k - 1)
             arr[j++] = 1;
     }
-    for (int n = 0; n < m - k + 1; n++)
-    {
-        for (int i = j - k; i < j; i++)
-        {
+    for (int n = 0; n < m - k + 1; n++) {
+        for (int i = j - k; i < j; i++) {
             arr[j] += arr[i];
         }
         j++;
@@ -44,20 +38,16 @@ int Fibonacci(int k, int m)
     return arr[j - 2];
 }
 
-void midsearch(int brr[], int len, int m)
-{
+void midsearch(int brr[], int len, int m) {
     int left = 0, right = len - 1;
     int mid;
-    while (left <= right)
-    {
+    while (left <= right) {
         mid = (left + right) / 2;
         if (brr[mid] == m)
             break;
-        else if (brr[mid] < m)
-        {
+        else if (brr[mid] < m) {
             left = mid + 1;
-        }
-        else
+        } else
             right = mid - 1;
     }
     if (left <= right)
@@ -196,19 +186,16 @@ void isSymmetric(LinkList h)
 }
 */
 
-typedef struct Stack
-{
+typedef struct Stack {
     char arr[50];
     int top;
 } S;
 
 /* 设计入栈、出栈及栈中元素个数3个函数 */
 
-S *initStack(S *s)
-{
-    s = (S *)malloc(sizeof(S));
-    if (!s)
-    {
+S* initStack(S* s) {
+    s = (S*)malloc(sizeof(S));
+    if (!s) {
         fprintf(stderr, "OVERFLOW\n");
         exit(EXIT_FAILURE);
     }
@@ -216,10 +203,8 @@ S *initStack(S *s)
     return s;
 }
 
-void push(S *s, char e)
-{
-    if (s->top == 0)
-    {
+void push(S* s, char e) {
+    if (s->top == 0) {
         fprintf(stderr, "The Stack is full\n");
         exit(EXIT_FAILURE);
     }
@@ -227,29 +212,24 @@ void push(S *s, char e)
     s->arr[s->top] = e;
 }
 
-void pop(S *s, char e)
-{
-    if (s->top == 50)
-    {
+void pop(S* s, char e) {
+    if (s->top == 50) {
         fprintf(stderr, "The Stack is null\n");
         exit(EXIT_FAILURE);
     }
     e = s->arr[s->top++];
 }
 
-int lenStack(S *s)
-{
+int lenStack(S* s) {
     int len = 0;
-    while (s->top != 50)
-    {
+    while (s->top != 50) {
         len++;
         s->top++;
     }
     return len;
 }
 
-typedef struct Queue
-{
+typedef struct Queue {
     int data[MAXSIZE];
     int front;
     int rear;
@@ -258,19 +238,16 @@ typedef struct Queue
 
 /* 编写入队和出队的算法 */
 
-Q *initQueue(Q *q)
-{
-    q = (Q *)malloc(sizeof(Q));
+Q* initQueue(Q* q) {
+    q = (Q*)malloc(sizeof(Q));
     q->front = 0;
     q->rear = 0;
     q->count = 0; //循环队列中的元素空间都能得到利用
     return q;
 }
 /* 入队 */
-void enQueue(Q *q, int e)
-{
-    if (q->rear == q->front && q->count == 1)
-    {
+void enQueue(Q* q, int e) {
+    if (q->rear == q->front && q->count == 1) {
         fprintf(stderr, "The queue is full\n");
         exit(EXIT_FAILURE);
     }
@@ -280,10 +257,8 @@ void enQueue(Q *q, int e)
         q->count = 1;
 }
 /* 出队 */
-void deQueue(Q *q, int *e)
-{
-    if (q->front == q->rear && q->count == 0)
-    {
+void deQueue(Q* q, int* e) {
+    if (q->front == q->rear && q->count == 0) {
         fprintf(stderr, "The queue is null\n");
         exit(EXIT_FAILURE);
     }
@@ -319,22 +294,18 @@ void queueTraverse(Q *q)
 }
 */
 
-typedef struct Node
-{
+typedef struct Node {
     char data;
-    struct Node *next;
+    struct Node* next;
 } Node;
 
-typedef struct
-{
-    Node *f, *r;
+typedef struct {
+    Node* f, * r;
 } LQ;
 /* 队列初始化 */
-LQ *initLinkQueue(LQ *q)
-{
-    q->f = q->r = (Node *)malloc(sizeof(Node));
-    if (!q->f)
-    {
+LQ* initLinkQueue(LQ* q) {
+    q->f = q->r = (Node*)malloc(sizeof(Node));
+    if (!q->f) {
         fprintf(stderr, "OVERFLOW\n");
         exit(EXIT_FAILURE);
     }
@@ -342,11 +313,9 @@ LQ *initLinkQueue(LQ *q)
     return q;
 }
 /* 队尾插入元素 */
-void EnQ(LQ *q, char x)
-{
-    Node *s = (Node *)malloc(sizeof(Node));
-    if (!q)
-    {
+void EnQ(LQ* q, char x) {
+    Node* s = (Node*)malloc(sizeof(Node));
+    if (!q) {
         fprintf(stderr, "OVERFLOW\n");
         exit(EXIT_FAILURE);
     }
@@ -356,9 +325,8 @@ void EnQ(LQ *q, char x)
     q->r = s;       // 将新元素变为队尾
 }
 /* 队头元素出队 */
-int DeQ(LQ *q, char *x)
-{
-    Node *p;
+int DeQ(LQ* q, char* x) {
+    Node* p;
     if (q->f == q->r)
         return 0;
     p = q->f->next; // p指向队头元素
@@ -370,12 +338,10 @@ int DeQ(LQ *q, char *x)
     return 1;
 }
 /* 遍历 */
-void vist(LQ *q)
-{
-    Node *p;
+void vist(LQ* q) {
+    Node* p;
     p = q->f->next;
-    while (p)
-    {
+    while (p) {
         printf("%d ", p->data);
         p = p->next;
     }
@@ -384,8 +350,7 @@ void vist(LQ *q)
 
 typedef unsigned char SString[MAXSTRLEN + 1];
 
-int StrAssign(SString T, char *chars)
-{
+int StrAssign(SString T, char* chars) {
     if (strlen(chars) > MAXSTRLEN) {
         fprintf(stderr, "Error\n");
         return -1;
@@ -396,7 +361,7 @@ int StrAssign(SString T, char *chars)
     return 1;
 }
 
-#define MAXSIZE 12500
+// #define MAXSIZE 12500
 
 typedef struct {
     int i, j; //该非零元的行下标和列下标
@@ -408,8 +373,7 @@ typedef struct {
     int mu, nu, tu; // 矩阵的行数、列数和非零元的个数
 } TSMatrix;
 
-int Judge(TSMatrix  T, int i, int j)
-{
+int Judge(TSMatrix  T, int i, int j) {
     if (i <= 0 || j <= 0 || i > T.mu || j > T.nu) {
         fprintf(stderr, "Error\n");
         return -1;
@@ -417,8 +381,8 @@ int Judge(TSMatrix  T, int i, int j)
     if (T.tu) {
         for (int k = 1; k <= T.tu; k++) {
             if (T.data[k].i == i && T.data[k].j == j) {
-                    printf("是非零元\n");
-                    return 0;
+                printf("是非零元\n");
+                return 0;
             }
         }
     }
@@ -426,20 +390,20 @@ int Judge(TSMatrix  T, int i, int j)
     return 0;
 }
 
-typedef enum {ATOM, LIST} ELemTag;  // ATOM == 0:原子, LIST == 1:子表
+typedef enum { ATOM, LIST } ELemTag;  // ATOM == 0:原子, LIST == 1:子表
 typedef struct GLNode {
     ELemTag tag;                    // 公共部分，用于区分原子节点和表结点
     union {                         // 原子节点和表结点的联合部分
         char atom;                  // 原子节点的值域
-        struct GLNode *hp;          // 表结点的表头指针
+        struct GLNode* hp;          // 表结点的表头指针
     };
-    struct GLNode *tp;              // 相当于线性链表的 next,指向下一个元素结点
+    struct GLNode* tp;              // 相当于线性链表的 next,指向下一个元素结点
 } *Glist;                           // 广义表类型 GList 是一种拓展的线性链表
 
 typedef struct BiTNode {
     int data;
-    struct BiTNode *lchild, *rchild;
-} BiTNode, *BTree;
+    struct BiTNode* lchild, * rchild;
+} BiTNode, * BTree;
 
 int NodeCount(BTree T) {
     if (NULL == T)
@@ -451,7 +415,7 @@ int NodeCount(BTree T) {
 #define MAX_TREE_SIZE 100
 typedef struct CTNode {
     int child;
-    struct CTNode *next;
+    struct CTNode* next;
 } *ChildPtr;
 typedef struct {
     int data;
@@ -463,8 +427,7 @@ typedef struct {
     int r, n;
 } CTree;
 
-int TreeDegree(CTree T)
-{
+int TreeDegree(CTree T) {
     if (0 == T.n)
         return 0;
     int flag = 0;
@@ -480,8 +443,49 @@ int TreeDegree(CTree T)
     return n;
 }
 
-int main(void)
-{
+#define MAX_VERTEX_NUM 20
+typedef struct ArcNode {
+    int adjvex;                 // 该弧所指向的顶点的位置
+    struct ArcNode* nextarc;    // 指向下一条弧的指针
+    int* info;                  // 该弧相关信息的指针
+} ArcNode;
+
+typedef struct VNode {
+    int data;                   // 顶点信息
+    ArcNode* firstedge;         // 指向第一条依附该顶点的弧的指针
+} VNode, AdjList[MAX_VERTEX_NUM];
+
+typedef struct {
+    AdjList vertices;
+    int vexnum, arcnum;         // 图当前顶点数和弧数
+    int kind;                   // 图的种类标志
+} ALGraph;
+
+/* DFS递归 */
+int judgeDFSCount = 0;
+void DFS(ALGraph AL, int visited[], int i) {
+    visited[i] = 1;
+    judgeDFSCount++;
+    ArcNode* p = AL.vertices[i].firstedge;
+    while (p) {
+        if (!visited[p->adjvex])
+            DFS(AL, visited, p->adjvex);
+        p = p->nextarc;
+    }
+}
+
+/* DFS 判断 */
+int DFSGtaph(ALGraph AL) {
+    int* visited = (int*)malloc(sizeof(AL.vexnum));
+    int flag = 0;
+    DFS(AL, visited, 0);
+    if (judgeDFSCount == AL.vexnum) {
+        flag = 1;
+    }
+    return 1;
+}
+
+int main(void) {
 
     /*
     SString T;

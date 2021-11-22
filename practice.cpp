@@ -2,12 +2,12 @@
 
 typedef struct Number {
     int data;
-    int order , n;
+    int order, n;
     struct Number* next;
-} Num;
+} Num, * NumList;
 
-Num* add(Num*& a , Num*& b) {
-    int firstNum = 0 , secondNum = 0;
+NumList add(NumList& a, NumList& b) {
+    int firstNum = 0, secondNum = 0;
 
     for (int i = 0; i < a->n; i++) {
         firstNum += a->data * a->order;
@@ -23,18 +23,21 @@ Num* add(Num*& a , Num*& b) {
 
     for (count = 1;(result /= 10) >= 1;count++);
 
-    Num* h = (Num*)malloc(sizeof(Num));
+    NumList h = (NumList)malloc(sizeof(Num));
     h->n = count;
     h->data = result % 10;
     h->order = 1;
     h->next = NULL;
 
-    for (int i = 0; i < count; i++) {
-        Num* c = (Num*)malloc(sizeof(Num));
+    for (int i = 1; i < count; i++) {
+        NumList c = (NumList)malloc(sizeof(Num));
         c->n = count;
-        c->data = result % 10;
         result /= 10;
-        c->order = 10;
+        c->data = result % 10;
+        if (!i) {
+            c->order = 1;
+        }
+        c->order *= 10;
         c->next = NULL;
         while (h->next)
             h = h->next;

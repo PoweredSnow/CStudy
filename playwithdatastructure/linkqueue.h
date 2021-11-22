@@ -4,16 +4,15 @@
 /* 队列的链式存储结构 */
 typedef struct QNode {
     QElemType data;
-    struct QNode *next;
-} QNode, *QueuePtr;
+    struct QNode* next;
+} QNode, * QueuePtr;
 
 typedef struct {
     QueuePtr front, rear;
 } LinkQueue;
 
 /* 插入元素 e 为 Q 的新的队尾元素 */
-Status EnQueue(LinkQueue *Q, QElemType e)
-{
+Status EnQueue(LinkQueue* Q, QElemType e) {
     QueuePtr s = (QueuePtr)malloc(sizeof(QNode));
     if (!s)
         exit(OVERFLOW);
@@ -25,8 +24,7 @@ Status EnQueue(LinkQueue *Q, QElemType e)
 }
 
 /* 若队列不空，删除 Q 的队头元素，用 e 返回其值 */
-Status DeQueue(LinkQueue *Q, QElemType *e)
-{
+Status DeQueue(LinkQueue* Q, QElemType* e) {
     QueuePtr p;
     if (Q->front == Q->rear)
         return ERROR;

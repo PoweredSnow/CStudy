@@ -4,8 +4,8 @@
 /* 栈的链式存储结构 */
 typedef struct StackNode {
     SElemType data;
-    struct StackNode *next;
-} StackNode, *LinkStackPtr;
+    struct StackNode* next;
+} StackNode, * LinkStackPtr;
 
 typedef struct LinkStack {
     LinkStackPtr top;
@@ -13,8 +13,7 @@ typedef struct LinkStack {
 } LinkStack;
 
 /* 插入元素 e 为新的栈顶元素 */
-Status Push(LinkStack *S, SElemType e)
-{
+Status Push(LinkStack* S, SElemType e) {
     LinkStackPtr s = (LinkStackPtr)malloc(sizeof(StackNode));
     s->data = e;
     s->next = S->top; /* 把当前的栈顶元素赋值给新节点的直接后继 */
@@ -24,8 +23,7 @@ Status Push(LinkStack *S, SElemType e)
 }
 
 /* 若栈不空，则删除 S 的栈顶元素， 用 e 返回其值 */
-Status Pop(LinkStack *S, SElemType *e)
-{
+Status Pop(LinkStack* S, SElemType* e) {
     LinkStackPtr p;
     if (StackEmpty(*S))
         return ERROR;

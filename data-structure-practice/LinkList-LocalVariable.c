@@ -16,7 +16,8 @@ LinkList initList(LinkList head)
         head->next = NULL;
     }
     else
-        fprintf(stderr, "Head is not NULL!\n");
+        fprintf(stderr , "Head is not NULL!\n");
+    return head;
 }
 
 /* 头插法 */

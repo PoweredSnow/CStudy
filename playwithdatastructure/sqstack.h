@@ -7,8 +7,7 @@ typedef struct {
 } SqStack;
 
 /* 插入元素 e 为新的栈顶元素 */
-Status Push(SqStack *S, SElemType e)
-{
+Status Push(SqStack* S, SElemType e) {
     if (S->top == MAXSIZE - 1) /* 栈满 */
         return ERROR;
     S->top++;
@@ -17,8 +16,7 @@ Status Push(SqStack *S, SElemType e)
 }
 
 /* 若栈不空，则删除 S 的栈顶元素， 用 e 返回其值 */
-Status Pop(SqStack *S, SElemType *e)
-{
+Status Pop(SqStack* S, SElemType* e) {
     if (S->top == -1)
         return ERROR;
     *e = S->data[S->top];
