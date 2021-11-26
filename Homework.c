@@ -4,6 +4,7 @@
 #define MAXSIZE 11
 #define MAXSTRLEN 255
 
+/*
 int Time(int n) {
     int count = 0;    //1
     int x = 2;        //1 n = 2^i i = log2 n
@@ -39,22 +40,23 @@ int Fibonacci(int k, int m) {
 }
 
 void midsearch(int brr[], int len, int m) {
-    int left = 0, right = len - 1;
+    int arr[i] = 0, arr[j] = len - 1;
     int mid;
-    while (left <= right) {
-        mid = (left + right) / 2;
+    while (arr[i] <= arr[j]) {
+        mid = (arr[i] + arr[j]) / 2;
         if (brr[mid] == m)
             break;
         else if (brr[mid] < m) {
-            left = mid + 1;
+            arr[i] = mid + 1;
         } else
-            right = mid - 1;
+            arr[j] = mid - 1;
     }
-    if (left <= right)
+    if (arr[i] <= arr[j])
         printf("该数存在于数组中。\n");
     else
         printf("该数不存在数组中！\n");
 }
+*/
 
 /*
 typedef struct Node
@@ -476,16 +478,41 @@ void DFS(ALGraph AL, int visited[], int i) {
 
 /* DFS 判断 */
 int DFSGtaph(ALGraph AL) {
-    int* visited = (int*)malloc(sizeof(AL.vexnum));
+    int* visited = (int*)malloc(AL.vexnum * sizeof(int));
+    for (int i = 0; i < AL.vexnum; i++)
+        *(visited + i) = 0;
     int flag = 0;
     DFS(AL, visited, 0);
     if (judgeDFSCount == AL.vexnum) {
         flag = 1;
     }
-    return 1;
+    return flag;
+}
+
+int* sort(int* arr, int len) {
+    int temp;
+    int i = 0, j = len - 1;
+
+    while (i <= j) {
+        while (arr[i] % 2 == 1) i++;
+        while (arr[j] % 2 == 0) j--;
+        if (i < j) {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    return arr;
 }
 
 int main(void) {
+
+    int arr[8] = { 23, 20, 19, 30, 10, 9, 55, 36 };
+    int* sorted = sort(arr, 8);
+    for (int i = 0; i < 8; i++)
+        printf("%d ", sorted[i]);
+    printf("\n");
+
 
     /*
     SString T;
